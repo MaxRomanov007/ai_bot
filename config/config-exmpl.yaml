@@ -1,0 +1,17 @@
+env: "local" #local, dev, prod
+database:
+  server: "localhost"
+  database: "aiBot"
+  port: 5432
+  username: "sample"
+  password: "12345678"
+  ssl: false
+telegram:
+  token: "[YOUR_TG_BOT_TOKEN]"
+  owner_telegram_id: 0
+ai:
+  key: "[YOUR_API_KEY]"
+  base_url: "" #leave blank for default
+  max_completion_tokens: 2000
+  prompt: "" #leave blank for no prompt
+  model: "gpt-4o-mini"

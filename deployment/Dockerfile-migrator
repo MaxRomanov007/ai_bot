@@ -1,0 +1,17 @@
+FROM golang:1.23.4-alpine AS build
+WORKDIR /app
+COPY .. .
+RUN mkdir -p ./build && go build -o ./build/main ./cmd/migrator/main.go
+
+FROM alpine:latest AS database
+WORKDIR /app
+
+COPY --from=build /app/build .
+
+COPY ../config/config-docker.yaml ./config/config-docker.yaml
+COPY ../migrations ./migrations/
+
+ENV CONFIG_PATH=./config/config-docker.yaml
+ENV MIGRATIONS_PATH=./migrations/
+
+CMD ["/app/main"]
