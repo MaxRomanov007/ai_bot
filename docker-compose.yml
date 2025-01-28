@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   db:
-    restart: always
+    restart: on-failure
     image: postgres:latest
     ports:
       - "5432:5432"
@@ -19,20 +19,18 @@ services:
       retries: 5
 
   migrator:
+    restart: on-failure
     build:
       dockerfile: deployment/Dockerfile-migrator
     depends_on:
       - db
-    restart: on-failure
 
   app:
+    restart: on-failure
     build:
       dockerfile: deployment/Dockerfile
     depends_on:
       - db
-    ports:
-      - "8000:8000"
-    restart: on-failure
 
 volumes:
   postgres_data:
